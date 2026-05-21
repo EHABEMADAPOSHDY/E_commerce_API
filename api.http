@@ -1,0 +1,26 @@
+GET http://127.0.0.1:8000/api/products/ HTTP/1.1
+
+###
+POST http://127.0.0.1:8000/api/products/ HTTP/1.1
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzc5MzQ1MzQ5LCJpYXQiOjE3NzkzNDUwNDksImp0aSI6IjZmOGM2NDYwMWNhYjQ2MTk5NjFkNjk5NzlhN2M4OTliIiwidXNlcl9pZCI6MX0.2iDb-482PIJpeQzJpLiezDkX08FSaXZ0AzhqizpyN-U
+
+{
+    "name":"Ehab",
+    "price":300,
+    "stock":14,
+    "description":"An amazing new Tv"
+}
+
+###
+POST http://127.0.0.1:8000/api/token/  HTTP/1.1
+Content-Type: application/json
+
+{
+    "username":"Ehab",
+    "password":"1234"
+}
+
+###
+GET http://127.0.0.1:8000/api/user-orders/ HTTP/1.1
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzc5MzUwMDk3LCJpYXQiOjE3NzkzNDk3OTcsImp0aSI6IjRlNTkzZjdlNjA0NTRkNWI4ZDZhN2MyMjRmZjFjNGZmIiwidXNlcl9pZCI6Mn0.t1oF9MaIfwMhqAZK6DZtwghu3pnLXFuj7pr9ANJZrgU
