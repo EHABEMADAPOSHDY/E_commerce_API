@@ -34,6 +34,7 @@ INSTALLED_APPS = [
     'silk',
     'drf_spectacular',
     'rest_framework',
+    'django_filters',
     'api',
     'django.contrib.admin',
     'django.contrib.auth',
@@ -138,7 +139,7 @@ CACHES = {
 
 
 SPECTACULAR_SETTINGS = {
-    'TITLE': 'Your Project API',
+    'TITLE': 'E-Commerce API',
     'DESCRIPTION': 'Your project description',
     'VERSION': '1.0.0',
     'SERVE_INCLUDE_SCHEMA': False,
@@ -146,14 +147,12 @@ SPECTACULAR_SETTINGS = {
 }
 
 REST_FRAMEWORK = {
-    # YOUR SETTINGS
     'DEFAULT_SCHEMA_CLASS': 'drf_spectacular.openapi.AutoSchema',
-}
 
-
-REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': [
         'rest_framework_simplejwt.authentication.JWTAuthentication',
         'rest_framework.authentication.SessionAuthentication',
-    ]
+    ],
+    'DEFAULT_FILTER_BACKENDS': ['django_filters.rest_framework.DjangoFilterBackend'],
 }
+

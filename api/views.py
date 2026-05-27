@@ -11,19 +11,22 @@ from rest_framework import generics
 from rest_framework.views import APIView
 from .serializers import *
 from .models import *
+from .filters import *
 
 
 class ProductListCreateAPIView(generics.ListCreateAPIView):
     queryset= Product.objects.all()
     serializer_class =  ProductSerializer
+    # filterset_fields = ('name', 'price')
+    filterset_class = ProductFilter
     def get_permissions(self):
         self.permission_classes = [AllowAny]
-        if self.request.method == 'POST':
+        if self.request.method in ['PUT' , 'PATCH' , 'DELETE']:
             self.permission_classes = [IsAuthenticated]
         return super().get_permissions()
 
 
-class ProductRetrieveAPIView(generics.RetrieveAPIView):
+class ProductRetrieveAPIView(generics.RetrieveUpdateDestroyAPIView):
     queryset = Product.objects.all()
     serializer_class = ProductSerializer
     lookup_url_kwarg = 'product_id'
@@ -43,7 +46,7 @@ class UserOrderListAPIView(generics.ListAPIView):
         return qs.filter(user=self.request.user)
 
 class ProductInfoAPIView(APIView):
-    def get(self,rrquest):
+    def get(self,request):
         products = Product.objects.order_by('id')
         serializer = ProductInfoSerializer({
             'products':products,
