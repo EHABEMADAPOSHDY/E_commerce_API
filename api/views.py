@@ -24,6 +24,7 @@ class ProductListCreateAPIView(generics.ListCreateAPIView):
         DjangoFilterBackend,
         filters.SearchFilter,
         filters.OrderingFilter,
+        InStoclFilterBackend,
         ]
     search_fields = ['name','description']
     ordering_fields = ['name', 'price']
