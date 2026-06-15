@@ -33,7 +33,7 @@ POST http://127.0.0.1:8000/api/token/  HTTP/1.1
 Content-Type: application/json
 
 {
-    "username":"Ehab",
+    "username":"admin",
     "password":"1234"
 }
 
@@ -49,3 +49,54 @@ Content-Type: application/json
 {
     "refresh":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoicmVmcmVzaCIsImV4cCI6MTc3OTY4NzA4MywiaWF0IjoxNzc5NjAwNjgzLCJqdGkiOiJhY2E5NDdjYzhjMTU0NDA2YTFiYTIzNTg4MjE3ZjRhOSIsInVzZXJfaWQiOjJ9.GUyXNOUZBas5GIqG1beAYvu7CdhRXCaiX895rtcIkew"
 }
+
+###
+GET http://localhost:8000/api/orders/ HTTP/1.1
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzgxMDc3MzMzLCJpYXQiOjE3ODEwNzcwMzMsImp0aSI6Ijg4N2VkYmRmMzVlMDQwYThhZmZjYzNlZmIxMmI0YjMzIiwidXNlcl9pZCI6MX0.a5RE9ZvwjOgI_9h2TpIXBdRe1abcxe8qvKWCMUn6SvI
+
+###
+GET http://localhost:8000/api/orders/af6e2b86-c4b9-4060-bd29-3b4cf21b3252/ HTTP/1.1
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzgxNDk4NzI3LCJpYXQiOjE3ODE0OTg0MjcsImp0aSI6IjAzN2MzYWFjNjEzODRhOTY5MDVjYjM0NGQ2YjgxNjY0IiwidXNlcl9pZCI6MX0.3GYtSNPDCW1U6tF5CMgXfa06na4gObUF8fXXEKEldAk
+
+###
+PUT http://localhost:8000/api/orders/af6e2b86-c4b9-4060-bd29-3b4cf21b3252/ HTTP/1.1
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzgxNDk5NDc5LCJpYXQiOjE3ODE0OTkxNzksImp0aSI6ImU3YWNmY2JjZjAyMTRhZGJhYjFmZjQ0MDRmOWZjYTBlIiwidXNlcl9pZCI6MX0.MXWEZiNBcZ3QZ95vkEq1D4fFhM_u9lZSqD3GNfgfnsQ
+
+
+{
+    "status": "Pending",
+    "items":[
+        {
+            "product":2,
+            "quantity":3
+        },
+        {
+            "product":3,
+            "quantity":1
+        }
+    ]
+}
+###
+POST http://localhost:8000/api/orders/ HTTP/1.1
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzgxNDk5NDc5LCJpYXQiOjE3ODE0OTkxNzksImp0aSI6ImU3YWNmY2JjZjAyMTRhZGJhYjFmZjQ0MDRmOWZjYTBlIiwidXNlcl9pZCI6MX0.MXWEZiNBcZ3QZ95vkEq1D4fFhM_u9lZSqD3GNfgfnsQ
+
+{
+    "status": "Pending",
+    "user":1,
+    "items":[
+        {
+            "product":2,
+            "quantity":3
+        },
+        {
+            "product":3,
+            "quantity":2
+        }
+    ]
+}
+
+###
+DELETE  http://localhost:8000/api/orders/af6e2b86-c4b9-4060-bd29-3b4cf21b3252/ HTTP/1.1
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzgxNDk5NDc5LCJpYXQiOjE3ODE0OTkxNzksImp0aSI6ImU3YWNmY2JjZjAyMTRhZGJhYjFmZjQ0MDRmOWZjYTBlIiwidXNlcl9pZCI6MX0.MXWEZiNBcZ3QZ95vkEq1D4fFhM_u9lZSqD3GNfgfnsQ
