@@ -86,3 +86,8 @@ class ProductInfoAPIView(APIView):
             'max_price':products.aggregate(max_price=Max('price'))['max_price']
         })
         return Response(serializer.data)
+    
+class UserListView(generics.ListAPIView):
+    queryset = User.objects.all()
+    serializer_class = UserSerializer
+    pagination_class = None

@@ -2,6 +2,12 @@ from django.db import transaction
 from rest_framework import serializers 
 from .models import *
 
+class UserSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = User
+        fields = ('password' , 'user_permissions' , 'is_authenticated' , 'get_full_name' , 'orders')
+
+
 class ProductSerializer(serializers.ModelSerializer):
     class Meta:
         model = Product
@@ -36,7 +42,6 @@ class OrderCreateSerializer(serializers.ModelSerializer):
     items = OrderItemsCreateSerializer(many=True , required=False)
 
     def update(self, instance, validated_data):
-
         with transaction.atomic():
             orderitem_data = validated_data.pop('items')
             instance  = super().update(instance , validated_data)
