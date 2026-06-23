@@ -1,17 +1,16 @@
-from django.shortcuts import render , get_object_or_404
 from django.db.models import Max
 from django.utils.decorators import method_decorator
 from django.views.decorators.cache import cache_page
-from rest_framework.decorators import api_view
+from django.views.decorators.vary import vary_on_headers
 from rest_framework.permissions import (
     IsAuthenticated,
     IsAdminUser,
     AllowAny ,
     )
-from rest_framework.decorators import action
 from rest_framework.response import Response
 from rest_framework import generics
 from rest_framework.views import APIView
+from rest_framework.throttling import ScopedRateThrottle
 from rest_framework import viewsets
 from .serializers import *
 from .models import *
@@ -23,6 +22,8 @@ from rest_framework.pagination import PageNumberPagination ,LimitOffsetPaginatio
 
 
 class ProductListCreateAPIView(generics.ListCreateAPIView):
+    throttle_scope = 'products'
+    throttle_classes  = [ScopedRateThrottle]
     queryset= Product.objects.order_by('pk')
     serializer_class =  ProductSerializer
     filterset_class = ProductFilter
@@ -57,17 +58,30 @@ class ProductRetrieveAPIView(generics.RetrieveUpdateDestroyAPIView):
     serializer_class = ProductSerializer
     lookup_url_kwarg = 'product_id'
 
+    def get_permissions(self):
+        self.permission_classes = [AllowAny]
+        if self.request.method in ['PUT' , 'PATCH' , 'DELETE']:
+            self.permission_classes = [IsAdminUser]
+        return super().get_permissions()
+    
 class OrderViewSet(viewsets.ModelViewSet):
+    throttle_scope = 'orders'
+    throttle_classes  = [ScopedRateThrottle]
     queryset = Order.objects.prefetch_related('items__product')
     serializer_class = OrderSerializer
     permission_classes = [IsAuthenticated]
     pagination_class = None
     filterset_class = OrderFilter
     filter_backends = [DjangoFilterBackend]
+
+    @method_decorator(cache_page(60 * 15 , key_prefix='product_list'))
+    @method_decorator(vary_on_headers("Authorization"))
+    def list(self, request, *args, **kwargs):
+        return super().list(request, *args, **kwargs)
     
     def perform_create(self, serializer):
         serializer.save(user=self.request.user)
-
+        
     def get_serializer_class(self):
         if self.action == 'create' or self.action == 'update':
             return OrderCreateSerializer
