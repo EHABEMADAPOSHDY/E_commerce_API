@@ -80,7 +80,7 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiY
 ###
 POST http://localhost:8000/api/orders/ HTTP/1.1
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzgxNDk5NDc5LCJpYXQiOjE3ODE0OTkxNzksImp0aSI6ImU3YWNmY2JjZjAyMTRhZGJhYjFmZjQ0MDRmOWZjYTBlIiwidXNlcl9pZCI6MX0.MXWEZiNBcZ3QZ95vkEq1D4fFhM_u9lZSqD3GNfgfnsQ
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzgzODM2Nzg1LCJpYXQiOjE3ODI1NDA3ODUsImp0aSI6ImZhZDZkOWU1YzZmMTQ3MDQ4NjUyNjhlMzBhNDEyNzkyIiwidXNlcl9pZCI6Mn0.y9MdALJX1IrhmdbDMb_9zZX3kLHt7Jln2PKYE55YARs
 
 {
     "status": "Pending",

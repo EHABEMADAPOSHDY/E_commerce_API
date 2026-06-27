@@ -19,7 +19,7 @@ from.pagination import *
 from rest_framework import filters 
 from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework.pagination import PageNumberPagination ,LimitOffsetPagination
-
+from api.tasks import send_order_confirmation_email
 
 class ProductListCreateAPIView(generics.ListCreateAPIView):
     throttle_scope = 'products'
@@ -80,7 +80,8 @@ class OrderViewSet(viewsets.ModelViewSet):
         return super().list(request, *args, **kwargs)
     
     def perform_create(self, serializer):
-        serializer.save(user=self.request.user)
+        order = serializer.save(user=self.request.user)
+        send_order_confirmation_email.delay(order.order_id , self.request.user.email)
         
     def get_serializer_class(self):
         if self.action == 'create' or self.action == 'update':
